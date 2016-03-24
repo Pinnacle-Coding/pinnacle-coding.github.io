@@ -15,7 +15,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Gudea:400italic,700,400' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
 
     <!-- CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" rel='stylesheet' type='text/css'>
@@ -27,16 +27,19 @@
 <body>
 
     <!-- Top Navbar -->
-    <div>
+    <div id="navbar-main">
         <nav>
             <div class="nav-wrapper green darken-3">
                 <a href="/" class="brand-logo"><img class="navbar-logo" src="/static/images/logo.png"></a>
-                <a href="#!" data-activates="navbar-mobile" class="navbar-menu waves-effect button-collapse"><i class="material-icons right">menu</i></a>
+                <a href="#!" data-activates="navbar-mobile" class="waves-effect navbar-menu button-collapse"><i class="material-icons right">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <!-- TODO -->
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     <!-- TODO -->
+                    <li><a href="#!" class="waves-effect">Right</a></li>
+                    <li><a href="#!" class="waves-effect">Second Right</a></li>
+                    <li><a href="#!" class="waves-effect">Third Right</a></li>
                 </ul>
             </div>
         </nav>
@@ -54,7 +57,7 @@
 
     <!-- Floating action button -->
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="waves-effect waves-light btn-floating btn-large teal">
+        <a class="waves-effect waves-light btn-floating btn-large black">
             <i class="large material-icons">question_answer</i>
         </a>
     </div>
