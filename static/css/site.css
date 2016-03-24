@@ -1,0 +1,21 @@
+header {
+    background-color: #B3E5FC;
+    padding-top: 400px;
+}
+
+.navbar-logo {
+    height: 56px;
+    width: auto;
+}
+
+@media (max-width: 600px) {
+    .navbar-logo {
+        height: 50px;
+        width: auto;
+    }
+}
+
+.navbar-menu {
+    padding-right: 16px;
+    border-radius: 50%;
+}
