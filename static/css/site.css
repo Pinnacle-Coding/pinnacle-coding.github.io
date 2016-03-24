@@ -1,6 +1,6 @@
 header {
     background-color: #B3E5FC;
-    padding-top: 400px;
+    padding-top: 300px;
 }
 
 .navbar-logo {
@@ -17,5 +17,5 @@ header {
 
 .navbar-menu {
     padding-right: 16px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
