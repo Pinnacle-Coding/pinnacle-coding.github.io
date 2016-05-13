@@ -1,73 +1,47 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pinnacle Coding is a new software firm specifically in web and artificial intelligence design.">
+    <meta name="description" content="Mitchell Sayer Home">
+    <meta name="author" content="Pinnacle Coding">
 
     <!-- Title -->
-    <title>Pinnacle Coding</title>
+    <title>Mitchell Sayer</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+    <link href="/static/assets/Buddhabrot.png" rel="icon" type="image/png">
 
     <!-- CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" rel='stylesheet' type='text/css'>
-    <link href="/static/css/site.css" rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Patua+One|Playfair+Display:400,700|Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    <!-- Blocking JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </head>
 
-<!-- https://www.materialpalette.com/light-blue/green -->
-
 <body>
+    <div id="particles-js"></div>
 
-    <!-- Top Navbar -->
-    <div id="navbar-main">
-        <nav>
-            <div class="nav-wrapper green darken-3">
-                <a href="/" class="brand-logo"><img class="navbar-logo" src="/static/images/logo.png"></a>
-                <a href="#!" data-activates="navbar-mobile" class="waves-effect navbar-menu button-collapse"><i class="material-icons right">menu</i></a>
-                <ul class="left hide-on-med-and-down">
-                    <!-- TODO -->
-                </ul>
-                <ul class="right hide-on-med-and-down">
-                    <!-- TODO -->
-                    <li><a href="#!" class="waves-effect">Right</a></li>
-                    <li><a href="#!" class="waves-effect">Second Right</a></li>
-                    <li><a href="#!" class="waves-effect">Third Right</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
-    <!-- Mobile Navbar -->
-    <ul class="side-nav" id="navbar-mobile">
-        <!-- TODO -->
-    </ul>
-    
-    <header class="green lighten-4">
+    <header id="main-container" class="container center-align">
         <div class="row">
+            <div class="col s12">
+                <img src="static/assets/PinnacleLogo.png" id="pinnacleImg">
+
+            </div>
+            <button id="contact-button" class="btn waves-effect waves-light" type="button" onclick="sendMail()">Contact Us!</button>
         </div>
     </header>
 
-    <!-- Floating action button -->
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="waves-effect waves-light btn-floating btn-large black">
-            <i class="large material-icons">question_answer</i>
-        </a>
-    </div>
+    <!-- Async JS -->
+    <script src="/static/js/particles.min.js"></script>
+    <script src="/static/js/app.js"></script>
 
-    <!-- Angular -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
-    <!-- Materialize -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
 
 </html>
