@@ -140,7 +140,7 @@
                     var geometry = new THREE.TextGeometry("Pinnacle Coding", {
                         font: font,
                         size: 20,
-                        height: 5
+                        height: 3
                     });
                     var material = new THREE.MeshPhongMaterial({
                         color: 0xffffff,
@@ -150,8 +150,8 @@
                         transparent: true
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    THREE.GeometryUtils.center(geometry)
-                    textMesh.position.set(0, 0, 30);
+                    geometry.center();
+                    textMesh.position.set(0, 0, 50);
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
 
