@@ -167,7 +167,7 @@
                     tween.onUpdate(function () {
                         camera.position.set(position.x, position.y, position.z);
                     });
-                    tween.easing(TWEEN.Easing.Bounce.Out);
+                    tween.easing(TWEEN.Easing.Elastic.InOut);
                     tween.start();
                 }
             }
