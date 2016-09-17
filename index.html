@@ -44,7 +44,7 @@
             var nodes;
             var node_connections;
             var camera_positions;
-            var stage;
+            var stage, iteration;
 
             init();
             animate();
@@ -79,6 +79,7 @@
                 nodes = [];
                 camera_positions = [];
                 stage = 0;
+                iteration = 0;
 
                 var y_max = 100;
                 var y_min = -100;
@@ -142,11 +143,29 @@
             }
 
             function animate() {
+                if (iteration % 1000 === 0) {
+                    var trace_through = [];
+                    for (var i = 0; i < nodes.length; i++) {
+                        trace_through.push(Math.floor(Math.random() * nodes[i].length));
+                    }
+                    for (var i = 0; i < trace_through.length; i++) {
+                        var node_layer = nodes[i];
+                        for (var j = 0; j < node_layer.length; j++) {
+                            node_layer[j].material.color = 0xffffff;
+                            if (j == trace_through[i]) {
+                                node_layer[j].material.color = 0xff0000;
+                            }
+                        }
+                    }
+                }
+
                 TWEEN.update();
 
                 renderer.render(scene, camera);
 
                 requestAnimationFrame(animate);
+
+                iteration++;
             }
 
             window.onkeydown = function (e) {
@@ -155,8 +174,7 @@
                 if (e.keyCode === 40 && stage < camera_positions.length - 1) {
                     stage++;
                     tweenMove = true;
-                }
-                else if (e.keyCode === 38 && stage > 0) {
+                } else if (e.keyCode === 38 && stage > 0) {
                     stage--;
                     tweenMove = true;
                 }
