@@ -45,7 +45,9 @@
             var node_connections;
             var camera_positions;
             var stage, iteration;
-            var text;
+            var node_text;
+            var fade_in_objects;
+            var fade_out_objects;
 
             init();
             animate();
@@ -134,7 +136,9 @@
                 var pos1 = camera_positions[stage];
                 camera.position.set(pos1.x, pos1.y, pos1.z);
 
-                text = [];
+                node_text = [[], [], [], [], [], []];
+                fade_in_objects = [];
+                fade_out_objects = [];
                 var loader = new THREE.FontLoader();
                 loader.load("http://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
                     var geometry = new THREE.TextGeometry("Pinnacle Coding", {
@@ -148,20 +152,13 @@
                         shininess: 10
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    textMesh.position.set(120, 0, -50); // Bottom right corner
+                    textMesh.position.set(-10, 0, 60); // Bottom right corner
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
 
                     text.push(textMesh);
 
-                    /*
-                    var box = new THREE.Box3().setFromObject(textMesh);
-                    box.center(textMesh.position);
-
-                    var pivot = new THREE.Group();
-                    scene.add(pivot);
-                    pivot.add(textMesh);
-                    */
+                    node_text[5].push(textMesh);
                 });
 
                 window.addEventListener('resize', function () {
@@ -203,8 +200,20 @@
                     }
                 }
 
-                for (var i in text) {
-                    text[i].lookAt(camera.position);
+                for (var i in fade_in_objects) {
+                    var obj = fade_in_objects[i];
+                    obj.material.opacity += 0.02;
+                    if (obj.material.opacity > 1) {
+                        obj.material.opacity = 1;
+                    }
+                }
+
+                for (var i in fade_out_objects) {
+                    var obj = fade_out_objects[i];
+                    obj.material.opacity -= 0.02;
+                    if (obj.material.opacity < 0) {
+                        obj.material.opacity = 0;
+                    }
                 }
 
                 TWEEN.update();
@@ -214,6 +223,20 @@
                 requestAnimationFrame(animate);
 
                 iteration++;
+            }
+
+            function onChangeStage() {
+                var position = camera.position.clone();
+                var target = camera_positions[stage];
+                var tween = new TWEEN.Tween(position).to(target, 2000);
+                tween.onUpdate(function () {
+                    camera.position.set(position.x, position.y, position.z);
+                });
+                tween.easing(TWEEN.Easing.Elastic.InOut);
+                tween.start();
+
+                fade_out_objects = fade_in_objects;
+                fade_in_objects = node_text[stage];
             }
 
             window.onkeydown = function (e) {
@@ -227,14 +250,7 @@
                     tweenMove = true;
                 }
                 if (tweenMove) {
-                    var position = camera.position.clone();
-                    var target = camera_positions[stage];
-                    var tween = new TWEEN.Tween(position).to(target, 2000);
-                    tween.onUpdate(function () {
-                        camera.position.set(position.x, position.y, position.z);
-                    });
-                    tween.easing(TWEEN.Easing.Elastic.InOut);
-                    tween.start();
+                    onChangeStage();
                 }
             }
 
