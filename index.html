@@ -169,7 +169,7 @@
                         }
                     }
                     for (var i = 0; i < trace_through.length - 1; i++) {
-                        var connections_to_next_layer = trace_through[i];
+                        var connections_to_next_layer = node_connections[i];
                         for (var j = 0; j < connections_to_next_layer.length; j++) {
                             for (var k = 0; k < connections_to_next_layer[j].length; k++) {
                                 var line = connections_to_next_layer[j][k];
