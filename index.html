@@ -157,8 +157,6 @@
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
 
-                    text.push(textMesh);
-
                     node_text[5].push(textMesh);
                 });
 
@@ -203,6 +201,7 @@
 
                 for (var i in fade_in_objects) {
                     var obj = fade_in_objects[i];
+                    console.log(obj);
                     obj.material.opacity += 0.02;
                     if (obj.material.opacity > 1) {
                         obj.material.opacity = 1;
