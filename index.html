@@ -136,7 +136,8 @@
                 var loader = new THREE.FontLoader();
                 loader.load("http://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
                     var geometry = new THREE.TextGeometry("Pinnacle Coding", {
-                        font: font
+                        font: font,
+                        size: 20
                     });
                     var material = new THREE.MeshPhongMaterial({
                         color: 0xffffff,
