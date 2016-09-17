@@ -214,8 +214,11 @@
                     } else {
                         for (var j = 0; j < text_objects.length; j++) {
                             var obj = text_objects[j];
-                            obj.material.opacity = 0;
-                            obj.visible = false;
+                            obj.material.opacity -= 0.005;
+                            if (obj.material.opacity < 0) {
+                                obj.material.opacity = 0;
+                                obj.visible = false;
+                            }
                         }
                     }
                 }
@@ -240,15 +243,13 @@
                 if (stage === 5) {
                     var mainTextPosition = node_text[5][0].position.clone();
                     var mainTextTarget = new THREE.Vector3(0, 60, 20);
-                    var mainTextTween = new TWEEN.Tween(mainTextPosition).to(mainTextTarget, 3000);
+                    var mainTextTween = new TWEEN.Tween(mainTextPosition).to(mainTextTarget, 5000);
                     mainTextTween.onUpdate(function () {
                        node_text[5][0].position.set(mainTextPosition.x, mainTextPosition.y, mainTextPosition.z);
                     });
-                    mainTextTween.easing(TWEEN.Easing.Elastic.InOut);
+                    mainTextTween.easing(TWEEN.Easing.Exponential.Out);
+                    mainTextTween.delay(500);
                     mainTextTween.start();
-                }
-                else {
-                    node_text[5][0].position.set(0, 0, 50);
                 }
             }
 
