@@ -144,7 +144,7 @@
                         shininess: 10
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    textMesh.position.set(0, 0, 60);
+                    textMesh.position.set(0, 0, 0);
                     scene.add(textMesh);
 
                     var box = new THREE.Box3().setFromObject(textMesh);
@@ -153,7 +153,6 @@
                     var pivot = new THREE.Group();
                     scene.add(pivot);
                     pivot.add(textMesh);
-                    pivot.position.x -= 50;
                 });
 
                 window.addEventListener('resize', function () {
