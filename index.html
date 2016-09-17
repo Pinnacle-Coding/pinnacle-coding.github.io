@@ -201,19 +201,12 @@
 
                 for (var i in fade_in_objects) {
                     var obj = fade_in_objects[i];
-                    console.log(obj);
-                    obj.material.opacity += 0.005;
-                    if (obj.material.opacity > 1) {
-                        obj.material.opacity = 1;
-                    }
+                    obj.visible = true;
                 }
 
                 for (var i in fade_out_objects) {
                     var obj = fade_out_objects[i];
-                    obj.material.opacity -= 0.005;
-                    if (obj.material.opacity < 0) {
-                        obj.material.opacity = 0;
-                    }
+                    obj.visible = false;
                 }
 
                 TWEEN.update();
