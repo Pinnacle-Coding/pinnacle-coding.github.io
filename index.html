@@ -6,42 +6,81 @@
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mitchell Sayer Home">
+    <meta name="description" content="Pinnacle, Coding, software, firm, consulting, web, mobile, backend, Mitchell, Sayer, David, Hacker">
     <meta name="author" content="Pinnacle Coding">
 
     <!-- Title -->
-    <title>Mitchell Sayer</title>
+    <title>Pinnacle Coding</title>
 
     <!-- Favicon -->
     <link href="/static/assets/Buddhabrot.png" rel="icon" type="image/png">
 
     <!-- CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Patua+One|Playfair+Display:400,700|Source+Code+Pro' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        body {
+            margin: 0;
+        }
 
-    <!-- Blocking JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+        canvas {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="particles-js"></div>
+    <script src="/static/js/three.min.js"></script>
+    <script>
+        window.onload = function () {
 
-    <header id="main-container" class="container center-align">
-        <div class="row">
-            <div class="col s12">
-                <img src="static/assets/PinnacleLogo.png" id="pinnacleImg">
+            var scene, camera, renderer;
+            var controls;
 
-            </div>
-            <button id="contact-button" class="btn waves-effect waves-light" type="button" onclick="sendMail()">Contact Us!</button>
-        </div>
-    </header>
+            init();
+            animate();
 
-    <!-- Async JS -->
-    <script src="/static/js/particles.min.js"></script>
-    <script src="/static/js/app.js"></script>
+            function init() {
 
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+                renderer = new THREE.WebGLRenderer({
+                    antialias: true
+                });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000);
+
+                document.body.appendChild(renderer.domElement);
+
+                // controls = new THREE.OrbitControls(camera, renderer.domElement);
+                // controls.target.position = new THREE.Vector3(0, 0, 0);
+
+                camera.position.x = 0;
+                camera.position.y = 0;
+                camera.position.z = 150;
+
+                window.addEventListener('resize', function () {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                }, false);
+            }
+
+            function animate() {
+
+                // controls.update();
+
+                renderer.render(scene, camera);
+
+                requestAnimationFrame(animate);
+            }
+
+        }
+    </script>
 </body>
 
 </html>
