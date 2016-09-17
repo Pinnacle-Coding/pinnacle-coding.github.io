@@ -150,7 +150,7 @@
                         transparent: true
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    textMesh.position.set(-50, 0, 50); // Bottom right corner
+                    textMesh.position.set(-100, 0, 20); // Bottom right corner
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
 
@@ -213,7 +213,6 @@
                     } else {
                         for (var j = 0; j < text_objects.length; j++) {
                             var obj = text_objects[j];
-                            obj.lookAt(camera.position);
                             obj.material.opacity -= 0.005;
                             if (obj.material.opacity < 0) {
                                 obj.material.opacity = 0;
