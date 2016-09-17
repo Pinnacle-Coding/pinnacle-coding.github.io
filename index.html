@@ -148,15 +148,8 @@
                     for (var i = 0; i < nodes.length; i++) {
                         trace_through.push(Math.floor(Math.random() * nodes[i].length));
                     }
-                    console.log(trace_through);
                     for (var i = 0; i < trace_through.length; i++) {
                         var node_layer = nodes[i];
-                        for (var j = 0; j < node_layer.length; j++) {
-                            node_layer[j].material.color = 0xffffff;
-                            if (j == trace_through[i]) {
-                                node_layer[j].material.color = 0xff0000;
-                            }
-                        }
                     }
                 }
 
