@@ -150,7 +150,8 @@
                         transparent: true
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    textMesh.position.set(-100, 0, 20); // Bottom right corner
+                    THREE.GeometryUtils.center(geometry)
+                    textMesh.position.set(0, 0, 30);
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
 
