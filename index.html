@@ -159,7 +159,11 @@
                                 shininess: 10
                             });
                             if (j === chosen) {
-                                material.color = 0x00ff00;
+                                material = new THREE.MeshPhongMaterial({
+                                    color: 0x00ff00,
+                                    specular: 0x353535,
+                                    shininess: 10
+                                });
                             }
                             sphere.material = material;
                         }
