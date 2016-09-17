@@ -141,12 +141,25 @@
             }
 
             function animate() {
-
-                // controls.update();
+                TWEEN.update();
 
                 renderer.render(scene, camera);
 
                 requestAnimationFrame(animate);
+            }
+
+            window.onkeydown = function (e) {
+                e = e || window.event;
+                if (e.keyCode === '40') {
+                    var position = camera.position.clone();
+                    var target = camera_positions.shift();
+                    var tween = new TWEEN.Tween(position).to(target, 2000);
+                    tween.onUpdate(function () {
+                        camera.position.set(position.x, position.y, position.z);
+                    });
+                    tween.easing(TWEEN.Easing.Elastic.InOut);
+                    tween.start();
+                }
             }
 
         }
