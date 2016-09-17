@@ -98,7 +98,7 @@
                             color: 0xffffff,
                             specular: 0x353535,
                             shininess: 10
-                        })
+                        });
                         var sphere = new THREE.Mesh(geometry, material);
                         scene.add(sphere);
                         sphere.position.set(x_min + x_separation_distance * (j + 1), y, 0);
@@ -153,9 +153,19 @@
                         var chosen = trace_through[i];
                         for (var j = 0; j < node_layer.length; j++) {
                             var sphere = node_layer[j];
-                            sphere.material.color = 0xffffff;
+                            var material = new THREE.MeshPhongMaterial({
+                                color: 0xffffff,
+                                specular: 0x353535,
+                                shininess: 10
+                            });
+                            sphere.material = material;
                             if (j === chosen) {
-                                sphere.material.color = 0xff0000;
+                                var coloredMaterial = new THREE.MeshPhongMaterial({
+                                    color: 0xff0000,
+                                    specular: 0x353535,
+                                    shininess: 10
+                                });
+                                sphere.material = coloredMaterial;
                             }
                         }
                     }
