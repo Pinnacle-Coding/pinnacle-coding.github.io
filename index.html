@@ -46,8 +46,6 @@
             var camera_positions;
             var stage, iteration;
             var node_text;
-            var fade_in_objects;
-            var fade_out_objects;
 
             init();
             animate();
@@ -137,8 +135,6 @@
                 camera.position.set(pos1.x, pos1.y, pos1.z);
 
                 node_text = [[], [], [], [], [], []];
-                fade_in_objects = [];
-                fade_out_objects = [];
                 var loader = new THREE.FontLoader();
                 loader.load("http://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
                     var geometry = new THREE.TextGeometry("Pinnacle Coding", {
@@ -200,21 +196,26 @@
                     }
                 }
 
-                for (var i in fade_in_objects) {
-                    var obj = fade_in_objects[i];
-                    obj.visible = true;
-                    obj.material.opacity += 0.005;
-                    if (obj.material.opacity > 1) {
-                        obj.material.opacity = 1;
-                    }
-                }
-
-                for (var i in fade_out_objects) {
-                    var obj = fade_out_objects[i];
-                    obj.material.opacity -= 0.005;
-                    if (obj.material.opacity < 0) {
-                        obj.material.opacity = 0;
-                        obj.visible = false;
+                for (var i = 0; i < node_text.length; i++) {
+                    var text_objects = node_text[i];
+                    if (stage === i) {
+                        for (var j = 0; j < text_objects.length; j++) {
+                            var obj = text_objects[j];
+                            obj.visible = true;
+                            obj.material.opacity += 0.005;
+                            if (obj.material.opacity > 1) {
+                                obj.material.opacity = 1;
+                            }
+                        }
+                    } else {
+                        for (var j = 0; j < text_objects.length; j++) {
+                            var obj = text_objects[j];
+                            obj.material.opacity -= 0.005;
+                            if (obj.material.opacity < 0) {
+                                obj.material.opacity = 0;
+                                obj.visible = false;
+                            }
+                        }
                     }
                 }
 
@@ -236,9 +237,6 @@
                 });
                 tween.easing(TWEEN.Easing.Elastic.InOut);
                 tween.start();
-
-                fade_out_objects = fade_in_objects;
-                fade_in_objects = node_text[stage];
             }
 
             window.onkeydown = function (e) {
