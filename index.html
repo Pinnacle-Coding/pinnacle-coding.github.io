@@ -143,29 +143,21 @@
             }
 
             function animate() {
-                if (iteration % 80 === 0) {
+                if (iteration % 100 === 0) {
                     var trace_through = [];
                     for (var i = 0; i < nodes.length; i++) {
                         trace_through.push(Math.floor(Math.random() * nodes[i].length));
                     }
                     for (var i = 0; i < trace_through.length; i++) {
                         var node_layer = nodes[i];
-                        var chosen = trace_through[i];
                         for (var j = 0; j < node_layer.length; j++) {
                             var sphere = node_layer[j];
-                            var material = new THREE.MeshPhongMaterial({
-                                color: 0xffffff,
-                                specular: 0x353535,
-                                shininess: 10
-                            });
-                            if (j === chosen) {
-                                material = new THREE.MeshPhongMaterial({
-                                    color: 0x00ff00,
-                                    specular: 0x353535,
-                                    shininess: 10
-                                });
+                            if (j === trace_through[i]) {
+                                sphere.material.color.setHex(0x00ff00);
                             }
-                            sphere.material = material;
+                            else {
+                                sphere.material.color.setHex(0xffffff);
+                            }
                         }
                     }
                     for (var i = 0; i < trace_through.length - 1; i++) {
@@ -174,13 +166,9 @@
                             for (var k = 0; k < connections_to_next_layer[j].length; k++) {
                                 var line = connections_to_next_layer[j][k];
                                 if (j === trace_through[i] && k === trace_through[i + 1]) {
-                                    line.material = new THREE.LineBasicMaterial({
-                                        color: 0x00ff00
-                                    });;
+                                    line.material.color.setHex(0x00ff00);
                                 } else {
-                                    line.material = new THREE.LineBasicMaterial({
-                                        color: 0xffffff
-                                    });;
+                                    line.material.color.setHex(0xffffff);
                                 }
                             }
                         }
