@@ -69,7 +69,7 @@
 
                 var y_max = 100;
                 var y_min = -100;
-                var y_separation_distance = (y_max - y_min) / (nodes.length - 1);
+                var y_separation_distance = (y_max - y_min) / (node_layers.length - 1);
                 var x_max = 100;
                 var x_min = -100;
 
@@ -77,7 +77,6 @@
                     var num_nodes = node_layers[i];
                     var x_separation_distance = (x_max - x_min) / (num_nodes + 1);
                     var node_layer = [];
-                    var pos = [];
                     for (var j = 0; j < num_nodes; j++) {
                         var geometry = new THREE.SphereGeometry(5, 32, 32);
                         var material = new THREE.MeshBasicMaterial({
@@ -86,11 +85,9 @@
                         var sphere = new THREE.Mesh(geometry, material);
                         scene.add(sphere);
                         sphere.position.set(x_min + x_separation_distance * (j + 1), y_max - y_separation_distance * i, 0);
-                        pos.push(sphere.position);
                         node_layer.push(sphere);
                     }
                     nodes.push(node_layer);
-                    console.log(pos);
                 }
 
                 camera.position.x = 0;
