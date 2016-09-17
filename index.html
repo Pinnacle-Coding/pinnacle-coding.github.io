@@ -51,8 +51,6 @@
 
             function init() {
 
-                console.log("init()");
-
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -135,6 +133,21 @@
                 var pos1 = camera_positions[stage];
                 camera.position.set(pos1.x, pos1.y, pos1.z);
 
+                var loader = new THREE.FontLoader();
+                loader.load("http://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
+                    var geometry = new THREE.TextGeometry("Pinnacle Coding", {
+                        font: font
+                    });
+                    var material = new THREE.MeshPhongMaterial({
+                        color: 0xffffff,
+                        specular: 0x353535,
+                        shininess: 10
+                    });
+                    var textMesh = new THREE.Mesh(geometry, material);
+                    textMesh.position.set(0, 0, 60);
+                    scene.add(textMesh);
+                });
+
                 window.addEventListener('resize', function () {
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
@@ -154,8 +167,7 @@
                             var sphere = node_layer[j];
                             if (j === trace_through[i]) {
                                 sphere.material.color.setHex(0x00ff00);
-                            }
-                            else {
+                            } else {
                                 sphere.material.color.setHex(0xffffff);
                             }
                         }
