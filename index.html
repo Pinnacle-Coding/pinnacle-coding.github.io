@@ -196,21 +196,24 @@
                     }
                 }
 
+                TWEEN.update(); // Update camera position first
+
                 for (var i = 0; i < node_text.length; i++) {
                     var text_objects = node_text[i];
                     if (stage === i) {
                         for (var j = 0; j < text_objects.length; j++) {
                             var obj = text_objects[j];
+                            obj.lookAt(camera.position);
                             obj.visible = true;
                             obj.material.opacity += 0.005;
                             if (obj.material.opacity > 1) {
                                 obj.material.opacity = 1;
                             }
-                            obj.lookAt(camera.position);
                         }
                     } else {
                         for (var j = 0; j < text_objects.length; j++) {
                             var obj = text_objects[j];
+                            obj.lookAt(camera.position);
                             obj.material.opacity -= 0.005;
                             if (obj.material.opacity < 0) {
                                 obj.material.opacity = 0;
@@ -219,8 +222,6 @@
                         }
                     }
                 }
-
-                TWEEN.update();
 
                 renderer.render(scene, camera);
 
