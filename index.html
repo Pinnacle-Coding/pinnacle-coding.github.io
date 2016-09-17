@@ -202,6 +202,7 @@
 
                 for (var i in fade_in_objects) {
                     var obj = fade_in_objects[i];
+                    obj.visible = true;
                     obj.material.opacity += 0.005;
                     if (obj.material.opacity > 1) {
                         obj.material.opacity = 1;
@@ -213,6 +214,7 @@
                     obj.material.opacity -= 0.005;
                     if (obj.material.opacity < 0) {
                         obj.material.opacity = 0;
+                        obj.visible = false;
                     }
                 }
 
