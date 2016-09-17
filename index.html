@@ -146,6 +146,14 @@
                     var textMesh = new THREE.Mesh(geometry, material);
                     textMesh.position.set(0, 0, 60);
                     scene.add(textMesh);
+
+                    var box = new THREE.Box3().setFromObject(textMesh);
+                    box.center(textMesh.position);
+
+                    var pivot = new THREE.Group();
+                    scene.add(pivot);
+                    pivot.add(textMesh);
+                    pivot.position.x -= 50;
                 });
 
                 window.addEventListener('resize', function () {
