@@ -239,6 +239,17 @@
                 });
                 tween.easing(TWEEN.Easing.Elastic.InOut);
                 tween.start();
+
+                if (stage === 5) {
+                    var mainTextPosition = node_text[5][0].position.clone();
+                    var mainTextTarget = new THREE.Vector3(0, 50, 20);
+                    var mainTextTween = new TWEEN.Tween(mainTextPosition).to(mainTextTarget, 3000);
+                    mainTextTween.onUpdate(function () {
+                       node_text[5][0].position.set(mainTextPosition.x, mainTextPosition.y, mainTextPosition.z);
+                    });
+                    mainTextTween.easing(TWEEN.Easing.Elastic.InOut);
+                    mainTextTween.start();
+                }
             }
 
             window.onkeydown = function (e) {
