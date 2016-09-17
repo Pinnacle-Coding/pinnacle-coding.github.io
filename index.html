@@ -45,6 +45,7 @@
             var node_connections;
             var camera_positions;
             var stage, iteration;
+            var text;
 
             init();
             animate();
@@ -133,6 +134,7 @@
                 var pos1 = camera_positions[stage];
                 camera.position.set(pos1.x, pos1.y, pos1.z);
 
+                text = [];
                 var loader = new THREE.FontLoader();
                 loader.load("http://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
                     var geometry = new THREE.TextGeometry("Pinnacle Coding", {
@@ -146,9 +148,11 @@
                         shininess: 10
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    textMesh.position.set(-70, 50, 0); // Bottom right corner
+                    textMesh.position.set(-200, 50, 0); // Bottom right corner
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
+
+                    text.push(textMesh);
 
                     /*
                     var box = new THREE.Box3().setFromObject(textMesh);
@@ -197,6 +201,10 @@
                             }
                         }
                     }
+                }
+
+                for (var i in text) {
+                    text[i].lookAt(camera.position);
                 }
 
                 TWEEN.update();
