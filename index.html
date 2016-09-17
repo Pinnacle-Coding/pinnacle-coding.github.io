@@ -129,9 +129,8 @@
                     node_connections.push(layer_connections);
                 }
 
-                camera.position = camera_positions.shift();
-                console.log(camera.position);
-                console.log(camera_positions);
+                var pos1 = camera_positions.shift();
+                camera.position.set(pos1.x, pos1.y, pos1.z);
 
                 window.addEventListener('resize', function () {
                     camera.aspect = window.innerWidth / window.innerHeight;
