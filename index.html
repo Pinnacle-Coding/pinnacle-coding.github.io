@@ -174,10 +174,13 @@
                             for (var k = 0; k < connections_to_next_layer[j].length; k++) {
                                 var line = connections_to_next_layer[j][k];
                                 if (j === trace_through[i] && k === trace_through[i + 1]) {
-                                    line.material.color = 0x00ff00;
-                                }
-                                else {
-                                    line.material.color = 0xffffff;
+                                    line.material = new THREE.LineBasicMaterial({
+                                        color: 0x00ff00
+                                    });;
+                                } else {
+                                    line.material = new THREE.LineBasicMaterial({
+                                        color: 0xffffff
+                                    });;
                                 }
                             }
                         }
