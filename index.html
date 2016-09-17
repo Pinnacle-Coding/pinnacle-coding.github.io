@@ -130,6 +130,7 @@
                 }
 
                 camera.position = camera_positions.shift();
+                console.log(camera.position);
 
                 window.addEventListener('resize', function () {
                     camera.aspect = window.innerWidth / window.innerHeight;
