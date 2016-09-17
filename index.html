@@ -283,9 +283,9 @@
 
             window.onkeydown = function (e) {
                 e = e || window.event;
-                if (e.keyCode === 40) {
+                if (e.keyCode === 40 || e.keyCode === 39) {
                     nextStage();
-                } else if (e.keyCode === 38) {
+                } else if (e.keyCode === 38 || e.keyCode === 37) {
                     previousStage();
                 }
             }
