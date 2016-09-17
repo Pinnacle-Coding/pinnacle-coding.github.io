@@ -150,8 +150,7 @@
 
             window.onkeydown = function (e) {
                 e = e || window.event;
-                if (e.keyCode === 40) {
-                    console.log('Down arrow key press');
+                if (e.keyCode === 40 && camera_positions.length) {
                     var position = camera.position.clone();
                     var target = camera_positions.shift();
                     var tween = new TWEEN.Tween(position).to(target, 2000);
