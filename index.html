@@ -150,7 +150,8 @@
                         color: 0xffffff,
                         specular: 0x353535,
                         shininess: 10,
-                        opacity: 0
+                        opacity: 0,
+                        transparent: true
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
                     textMesh.position.set(-200, 0, 0); // Bottom right corner
@@ -201,12 +202,18 @@
 
                 for (var i in fade_in_objects) {
                     var obj = fade_in_objects[i];
-                    obj.visible = true;
+                    obj.material.opacity += 0.005;
+                    if (obj.material.opacity > 1) {
+                        obj.material.opacity = 1;
+                    }
                 }
 
                 for (var i in fade_out_objects) {
                     var obj = fade_out_objects[i];
-                    obj.visible = false;
+                    obj.material.opacity -= 0.005;
+                    if (obj.material.opacity < 0) {
+                        obj.material.opacity = 0;
+                    }
                 }
 
                 TWEEN.update();
