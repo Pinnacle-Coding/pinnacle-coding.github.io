@@ -139,7 +139,7 @@
                 loader.load("http://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
                     var geometry = new THREE.TextGeometry("Pinnacle Coding", {
                         font: font,
-                        size: 10,
+                        size: 20,
                         height: 5
                     });
                     var material = new THREE.MeshPhongMaterial({
@@ -150,7 +150,7 @@
                         transparent: true
                     });
                     var textMesh = new THREE.Mesh(geometry, material);
-                    textMesh.position.set(-10, 0, 50); // Bottom right corner
+                    textMesh.position.set(-50, 0, 50); // Bottom right corner
                     textMesh.lookAt(camera.position);
                     scene.add(textMesh);
 
