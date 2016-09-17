@@ -150,7 +150,14 @@
                     }
                     for (var i = 0; i < trace_through.length; i++) {
                         var node_layer = nodes[i];
-                        console.log(node_layer);
+                        var chosen = trace_through[i];
+                        for (var j = 0; j < node_layer.length; j++) {
+                            var sphere = node_layer[j];
+                            sphere.material.color = 0xffffff;
+                            if (j === chosen) {
+                                sphere.material.color = 0xff0000;
+                            }
+                        }
                     }
                 }
 
