@@ -37,7 +37,7 @@
 
 <body>
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large grey darken-1 waves-effect waves-light">
+        <a id="fab-next" class="btn-floating btn-large grey darken-1 waves-effect waves-light">
             <i class="large material-icons">skip_next</i>
         </a>
     </div>
@@ -240,6 +240,20 @@
                 iteration++;
             }
 
+            function nextStage() {
+                if (stage < camera_positions.length - 1) {
+                    stage++;
+                    onChangeStage();
+                }
+            }
+
+            function previousStage() {
+                if (stage > 0) {
+                    stage--;
+                    onChangeStage();
+                }
+            }
+
             function onChangeStage() {
                 var position = camera.position.clone();
                 var target = camera_positions[stage];
@@ -265,18 +279,14 @@
 
             window.onkeydown = function (e) {
                 e = e || window.event;
-                var tweenMove = false;
-                if (e.keyCode === 40 && stage < camera_positions.length - 1) {
-                    stage++;
-                    tweenMove = true;
-                } else if (e.keyCode === 38 && stage > 0) {
-                    stage--;
-                    tweenMove = true;
-                }
-                if (tweenMove) {
-                    onChangeStage();
+                if (e.keyCode === 40) {
+                    nextStage();
+                } else if (e.keyCode === 38) {
+                    previousStage();
                 }
             }
+
+            $('#fab-next').addEventListener("click", nextStage);
 
         }
     </script>
