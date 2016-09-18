@@ -78,9 +78,6 @@
 
                 document.body.appendChild(renderer.domElement);
 
-                // controls = new THREE.OrbitControls(camera, renderer.domElement);
-                // controls.target.position = new THREE.Vector3(0, 0, 0);
-
                 var ambient = new THREE.AmbientLight(0x333333);
                 scene.add(ambient);
 
@@ -104,13 +101,11 @@
                 var y_max = 100;
                 var y_min = -100;
                 var y_separation_distance = (y_max - y_min) / (node_layers.length - 1);
-                // var x_max = 100;
-                // var x_min = -100;
 
+                // Set up nodes/spheres
                 for (var i = 0; i < node_layers.length; i++) {
                     var num_nodes = node_layers[i];
                     var xz_for_num_nodes = xz_positions[num_nodes];
-                    // var x_separation_distance = (x_max - x_min) / (num_nodes + 1);
                     var y = y_max - y_separation_distance * i;
                     var node_layer = [];
                     for (var j = 0; j < num_nodes; j++) {
@@ -128,6 +123,7 @@
                     nodes.push(node_layer);
                 }
 
+                // Set up connections between nodes/lines
                 node_connections = [];
                 for (var i = 0; i < node_layers.length - 1; i++) {
                     var layer_connections = [];
@@ -151,6 +147,7 @@
                     node_connections.push(layer_connections);
                 }
 
+                // Set up path visting a node in each layer
                 node_path = [];
                 for (var i = 0; i < nodes.length; i++) {
                     node_path.push(Math.floor(Math.random() * nodes[i].length));
@@ -170,12 +167,15 @@
                     ay /= node_layer.length;
                     az /= node_layer.length;
                     var average_position = new THREE.Vector3(ax, ay, az);
+                    if (node_layer.length === 1) {
+                        average_position = new THREE.Vector3(1000, average_position.y, 10000);
+                    }
                     for (var j = 0; j < node_layer.length; j++) {
                         var sphere = node_layer[j];
                         if (j === node_path[i]) {
                             sphere.material.color.setHex(0x00ff00);
-                            var direction = sphere.position.clone().subtract(average_position).normalize();
-                            var position = sphere.position.clone().add(direction.multiplyScalar(20));
+                            var direction = sphere.position.clone().sub(average_position).normalize().multiplyScalar(50);
+                            var position = sphere.position.clone().add(direction);
                             camera_positions.push(position);
                         } else {
                             sphere.material.color.setHex(0xffffff);
@@ -197,9 +197,11 @@
                     }
                 }
 
+                // Set up initial camera position
                 var pos1 = camera_positions[stage];
                 camera.position.set(pos1.x, pos1.y, pos1.z);
 
+                // Set up 'Pinnacle Coding' at end
                 node_text = [[], [], [], [], [], []];
                 var loader = new THREE.FontLoader();
                 loader.load("/static/fonts/Play_Regular.json", function (font) {
@@ -224,6 +226,7 @@
                     node_text[5].push(textMesh);
                 });
 
+                // Window resize listener
                 window.addEventListener('resize', function () {
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
@@ -289,7 +292,7 @@
                 tween.onUpdate(function () {
                     camera.position.set(position.x, position.y, position.z);
                 });
-                tween.easing(TWEEN.Easing.Elastic.InOut);
+                tween.easing(TWEEN.Easing.Cubic.InOut);
                 tween.start();
 
                 if (stage === 5) {
