@@ -57,6 +57,7 @@
 
             var nodes;
             var node_connections;
+            var node_path;
             var camera_positions;
             var stage, iteration;
             var node_text;
@@ -89,6 +90,12 @@
                 scene.add(light);
 
                 var node_layers = [1, 3, 3, 5, 6];
+                var xz_positions = {
+                    1: [[0, 0]],
+                    3: [[-25, 0], [25, 0], [0, -25]],
+                    5: [[-50, 0], [50, 0], [0, -25], [-50, -50], [50, -50]],
+                    6: [[-50, 0], [0, 0], [50, 0], [-50, -50], [0, -50], [50, -50]]
+                };
                 nodes = [];
                 camera_positions = [];
                 stage = 0;
@@ -97,12 +104,13 @@
                 var y_max = 100;
                 var y_min = -100;
                 var y_separation_distance = (y_max - y_min) / (node_layers.length - 1);
-                var x_max = 100;
-                var x_min = -100;
+                // var x_max = 100;
+                // var x_min = -100;
 
                 for (var i = 0; i < node_layers.length; i++) {
                     var num_nodes = node_layers[i];
-                    var x_separation_distance = (x_max - x_min) / (num_nodes + 1);
+                    var xz_for_num_nodes = xz_positions[num_nodes];
+                    // var x_separation_distance = (x_max - x_min) / (num_nodes + 1);
                     var y = y_max - y_separation_distance * i;
                     var node_layer = [];
                     for (var j = 0; j < num_nodes; j++) {
@@ -114,13 +122,11 @@
                         });
                         var sphere = new THREE.Mesh(geometry, material);
                         scene.add(sphere);
-                        sphere.position.set(x_min + x_separation_distance * (j + 1), y, 0);
+                        sphere.position.set(xz_for_num_nodes[j][0], y, xz_for_num_nodes[j][1]);
                         node_layer.push(sphere);
                     }
                     nodes.push(node_layer);
-                    camera_positions.push(new THREE.Vector3(0, y, 50));
                 }
-                camera_positions.push(new THREE.Vector3(0, 0, 150));
 
                 node_connections = [];
                 for (var i = 0; i < node_layers.length - 1; i++) {
@@ -143,6 +149,37 @@
                         layer_connections.push(neuron_connections);
                     }
                     node_connections.push(layer_connections);
+                }
+
+                node_path = [];
+                for (var i = 0; i < nodes.length; i++) {
+                    node_path.push(Math.floor(Math.random() * nodes[i].length));
+                }
+                for (var i = 0; i < node_path.length; i++) {
+                    var node_layer = nodes[i];
+                    for (var j = 0; j < node_layer.length; j++) {
+                        var sphere = node_layer[j];
+                        if (j === node_path[i]) {
+                            sphere.material.color.setHex(0x00ff00);
+                            camera_positions.push(new THREE.Vector3(sphere.position.x, sphere.position.y, 50));
+                        } else {
+                            sphere.material.color.setHex(0xffffff);
+                        }
+                    }
+                }
+                camera_positions.push(new THREE.Vector3(0, 0, 150));
+                for (var i = 0; i < node_path.length - 1; i++) {
+                    var connections_to_next_layer = node_connections[i];
+                    for (var j = 0; j < connections_to_next_layer.length; j++) {
+                        for (var k = 0; k < connections_to_next_layer[j].length; k++) {
+                            var line = connections_to_next_layer[j][k];
+                            if (j === node_path[i] && k === node_path[i + 1]) {
+                                line.material.color.setHex(0x00ff00);
+                            } else {
+                                line.material.color.setHex(0xffffff);
+                            }
+                        }
+                    }
                 }
 
                 var pos1 = camera_positions[stage];
@@ -180,38 +217,10 @@
             }
 
             function animate() {
-                if (iteration % 100 === 0) {
-                    var trace_through = [];
-                    for (var i = 0; i < nodes.length; i++) {
-                        trace_through.push(Math.floor(Math.random() * nodes[i].length));
-                    }
-                    for (var i = 0; i < trace_through.length; i++) {
-                        var node_layer = nodes[i];
-                        for (var j = 0; j < node_layer.length; j++) {
-                            var sphere = node_layer[j];
-                            if (j === trace_through[i]) {
-                                sphere.material.color.setHex(0x00ff00);
-                            } else {
-                                sphere.material.color.setHex(0xffffff);
-                            }
-                        }
-                    }
-                    for (var i = 0; i < trace_through.length - 1; i++) {
-                        var connections_to_next_layer = node_connections[i];
-                        for (var j = 0; j < connections_to_next_layer.length; j++) {
-                            for (var k = 0; k < connections_to_next_layer[j].length; k++) {
-                                var line = connections_to_next_layer[j][k];
-                                if (j === trace_through[i] && k === trace_through[i + 1]) {
-                                    line.material.color.setHex(0x00ff00);
-                                } else {
-                                    line.material.color.setHex(0xffffff);
-                                }
-                            }
-                        }
-                    }
-                }
-
                 TWEEN.update(); // Update camera position first
+
+                var cpos = camera.position.clone();
+                camera.lookAt(new THREE.Vector3(0, cpos.y, 0));
 
                 for (var i = 0; i < node_text.length; i++) {
                     var text_objects = node_text[i];
