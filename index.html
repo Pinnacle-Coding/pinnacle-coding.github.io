@@ -157,11 +157,26 @@
                 }
                 for (var i = 0; i < node_path.length; i++) {
                     var node_layer = nodes[i];
+                    var ax = 0;
+                    var ay = 0;
+                    var az = 0;
+                    for (var j = 0; j < node_layer.length; j++) {
+                        var sphere = node_layer[j];
+                        ax += sphere.position.x;
+                        ay += sphere.position.y;
+                        az += sphere.position.z;
+                    }
+                    ax /= node_layer.length;
+                    ay /= node_layer.length;
+                    az /= node_layer.length;
+                    var average_position = new THREE.Vector3(ax, ay, az);
                     for (var j = 0; j < node_layer.length; j++) {
                         var sphere = node_layer[j];
                         if (j === node_path[i]) {
                             sphere.material.color.setHex(0x00ff00);
-                            camera_positions.push(new THREE.Vector3(sphere.position.x, sphere.position.y, 50));
+                            var direction = sphere.position.clone().subtract(average_position).normalize();
+                            var position = sphere.position.clone().add(direction.multiplyScalar(20));
+                            camera_positions.push(position);
                         } else {
                             sphere.material.color.setHex(0xffffff);
                         }
