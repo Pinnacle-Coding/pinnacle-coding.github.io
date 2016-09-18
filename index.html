@@ -197,15 +197,11 @@
                     }
                 }
 
-                // Set up initial camera position
-                var pos1 = camera_positions[stage];
-                camera.position.set(pos1.x, pos1.y, pos1.z);
-
                 // Set up 'Pinnacle Coding' at end
                 node_text = [[], [], [], [], [], []];
                 var loader = new THREE.FontLoader();
-                loader.load("/static/fonts/Play_Regular.json", function (font) {
-                    var geometry = new THREE.TextGeometry("Pinnacle Coding", {
+                loader.load("/static/fonts/Raleway_Regular.json", function (font) {
+                    var geometry = new THREE.TextGeometry("PINNACLE CODING", {
                         font: font,
                         size: 20,
                         height: 3
@@ -225,6 +221,10 @@
 
                     node_text[5].push(textMesh);
                 });
+
+                // Set up initial camera position
+                var pos1 = camera_positions[stage];
+                camera.position.set(pos1.x, pos1.y, pos1.z);
 
                 // Window resize listener
                 window.addEventListener('resize', function () {
