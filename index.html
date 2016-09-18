@@ -167,13 +167,13 @@
                     ay /= node_layer.length;
                     az /= node_layer.length;
                     var average_position = new THREE.Vector3(ax, ay, az);
-                    if (node_layer.length === 1) {
-                        average_position = new THREE.Vector3(1000, average_position.y, 10000);
-                    }
                     for (var j = 0; j < node_layer.length; j++) {
                         var sphere = node_layer[j];
                         if (j === node_path[i]) {
                             sphere.material.color.setHex(0x00ff00);
+                            if (sphere.position.clone().sub(average_position).length() < 0.001) {
+                                average_position = new THREE.Vector3(1000, average_position.y, 10000);
+                            }
                             var direction = sphere.position.clone().sub(average_position).normalize().multiplyScalar(30);
                             var position = sphere.position.clone().add(direction);
                             camera_positions.push(position);
