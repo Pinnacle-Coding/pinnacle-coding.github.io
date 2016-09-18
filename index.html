@@ -174,7 +174,7 @@
                         var sphere = node_layer[j];
                         if (j === node_path[i]) {
                             sphere.material.color.setHex(0x00ff00);
-                            var direction = sphere.position.clone().sub(average_position).normalize().multiplyScalar(50);
+                            var direction = sphere.position.clone().sub(average_position).normalize().multiplyScalar(30);
                             var position = sphere.position.clone().add(direction);
                             camera_positions.push(position);
                         } else {
@@ -288,11 +288,11 @@
             function onChangeStage() {
                 var position = camera.position.clone();
                 var target = camera_positions[stage];
-                var tween = new TWEEN.Tween(position).to(target, 2000);
+                var tween = new TWEEN.Tween(position).to(target, 1500);
                 tween.onUpdate(function () {
                     camera.position.set(position.x, position.y, position.z);
                 });
-                tween.easing(TWEEN.Easing.Cubic.InOut);
+                tween.easing(TWEEN.Easing.Sinusoidal.InOut);
                 tween.start();
 
                 if (stage === 5) {
