@@ -93,6 +93,7 @@
                     5: [[-50, 0], [50, 0], [0, -25], [-50, -50], [50, -50]],
                     6: [[-50, 0], [0, 0], [50, 0], [-50, -50], [0, -50], [50, -50]]
                 };
+                var layer_colours = [0x2196f3, 0x1de9b6, 0xf44336, 0x673ab7, 0xff9800 ]
                 nodes = [];
                 camera_positions = [];
                 stage = 0;
@@ -111,7 +112,7 @@
                     for (var j = 0; j < num_nodes; j++) {
                         var geometry = new THREE.SphereGeometry(5, 32, 32);
                         var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff,
+                            color: layer_colours[i],
                             specular: 0x353535,
                             shininess: 10
                         });
